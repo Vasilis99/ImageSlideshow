@@ -1,5 +1,6 @@
 package com.denzcoskun.imageslider.models
 
+import android.graphics.Bitmap
 import com.denzcoskun.imageslider.constants.ScaleTypes
 
 /**
@@ -10,7 +11,8 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 class SlideModel {
 
     var imageUrl: String? = null
-    var imagePath: Int? = 0
+    var resourceId: Int? = 0
+    var bitmap: Bitmap? = null
     var title: String? = null
     var scaleType: ScaleTypes? = null
 
@@ -20,20 +22,29 @@ class SlideModel {
         this.scaleType = scaleType
     }
 
-    constructor(imagePath: Int?, title: String?  = null, scaleType: ScaleTypes?  = null) {
-        this.imagePath = imagePath
+    constructor(resourceId: Int?, title: String?  = null, scaleType: ScaleTypes?  = null) {
+        this.resourceId = resourceId
         this.title = title
         this.scaleType = scaleType
     }
 
+    constructor(bitmap: Bitmap?, title: String? = null, scaleType: ScaleTypes? = null) {
+        this.bitmap = bitmap
+        this.title = title
+        this.scaleType = scaleType
+    }
     constructor(imageUrl: String?, scaleType: ScaleTypes?) {
         this.imageUrl = imageUrl
         this.scaleType = scaleType
     }
 
-    constructor(imagePath: Int?, scaleType: ScaleTypes?) {
-        this.imagePath = imagePath
+    constructor(resourceId: Int?, scaleType: ScaleTypes?) {
+        this.resourceId = resourceId
         this.scaleType = scaleType
     }
 
+    constructor(bitmap: Bitmap?, scaleType: ScaleTypes? = null) {
+        this.bitmap = bitmap
+        this.scaleType = scaleType
+    }
 }

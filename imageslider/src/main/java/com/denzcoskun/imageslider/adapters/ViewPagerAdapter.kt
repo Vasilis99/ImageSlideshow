@@ -70,25 +70,31 @@ class ViewPagerAdapter(context: Context?,
         }
 
         // Image from url or local path check.
-        val loader = if (imageList!![position].imageUrl == null){
-            Picasso.get().load(imageList!![position].imagePath!!)
-        }else{
-            Picasso.get().load(imageList!![position].imageUrl!!)
+        if(imageList!![position].imageUrl == null && imageList!![position].resourceId == 0){
+            imageView.setImageBitmap(imageList!![position].bitmap)
+        }
+        else{
+            val loader = if (imageList!![position].imageUrl == null){
+                Picasso.get().load(imageList!![position].resourceId!!)
+            }else{
+                Picasso.get().load(imageList!![position].imageUrl!!)
+            }
+
+            // set Picasso options.
+            if ((scaleType != null && scaleType == ScaleTypes.CENTER_CROP) || imageList!![position].scaleType == ScaleTypes.CENTER_CROP){
+                loader.fit().centerCrop()
+            } else if((scaleType != null && scaleType == ScaleTypes.CENTER_INSIDE) || imageList!![position].scaleType == ScaleTypes.CENTER_INSIDE){
+                loader.fit().centerInside()
+            }else if((scaleType != null && scaleType == ScaleTypes.FIT) || imageList!![position].scaleType == ScaleTypes.FIT){
+                loader.fit()
+            }
+
+            loader.transform(RoundedTransformation(radius, 0))
+                .placeholder(placeholder)
+                .error(errorImage)
+                .into(imageView)
         }
 
-        // set Picasso options.
-        if ((scaleType != null && scaleType == ScaleTypes.CENTER_CROP) || imageList!![position].scaleType == ScaleTypes.CENTER_CROP){
-            loader.fit().centerCrop()
-        } else if((scaleType != null && scaleType == ScaleTypes.CENTER_INSIDE) || imageList!![position].scaleType == ScaleTypes.CENTER_INSIDE){
-            loader.fit().centerInside()
-        }else if((scaleType != null && scaleType == ScaleTypes.FIT) || imageList!![position].scaleType == ScaleTypes.FIT){
-            loader.fit()
-        }
-
-        loader.transform(RoundedTransformation(radius, 0))
-            .placeholder(placeholder)
-            .error(errorImage)
-            .into(imageView)
 
         container.addView(itemView)
 

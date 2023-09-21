@@ -1,6 +1,12 @@
 package com.denzcoskun.imageslideshow
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory.decodeByteArray
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Base64
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ActionTypes
@@ -25,11 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         val imageSlider = findViewById<ImageSlider>(R.id.image_slider) // init imageSlider
 
-        val imageList = ArrayList<SlideModel>() // Create image list
-        imageList.add(SlideModel("https://t.ly/aaa_", "The future is our hands."))
-        imageList.add(SlideModel("https://t.ly/sg91", "Climate change is moving very fast."))
-        imageList.add(SlideModel("https://t.ly/hqW3", "The population has decreased by 27 percent in the last 5 years."))
-
+        val imageList = ArrayList<SlideModel>()
+        // Create image list
+        imageList.add(SlideModel("https://th.bing.com/th/id/R.4ff424801900b785973a54256af830e1?rik=EzEGu0FHm1suvg&pid=ImgRaw&r=0", "Car 1"))
+        imageList.add(SlideModel("https://car-images.bauersecure.com/pagefiles/26719/amclaren-2016.jpg", "Car 2"))
         imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
 
         imageSlider.setSlideAnimation(AnimationTypes.ZOOM_OUT)
@@ -63,6 +68,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    fun decodeBase64ToBitmap(base64String: String): Bitmap? {
+        val bytes = Base64.decode(base64String, Base64.DEFAULT)
+            return decodeByteArray(bytes, 0, bytes.size)
+
     }
 
 }
