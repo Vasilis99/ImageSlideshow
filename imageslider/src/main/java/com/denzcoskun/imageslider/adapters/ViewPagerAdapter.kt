@@ -2,6 +2,7 @@ package com.denzcoskun.imageslider.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -59,6 +60,7 @@ class ViewPagerAdapter(context: Context?,
         val linearLayout = itemView.findViewById<LinearLayout>(R.id.linear_layout)
         val textView = itemView.findViewById<TextView>(R.id.text_view)
         textView.setTextColor(Color.parseColor(textColor))
+        textView.setTypeface(null,Typeface.BOLD)
 
         if (imageList!![position].title != null){
             textView.text = imageList!![position].title
@@ -94,7 +96,6 @@ class ViewPagerAdapter(context: Context?,
                 .error(errorImage)
                 .into(imageView)
         }
-
 
         container.addView(itemView)
 
